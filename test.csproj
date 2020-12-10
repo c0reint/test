@@ -1,0 +1,40 @@
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Target Name="MSBuildPosh">
+   <MS/>
+  </Target>
+   <UsingTask
+    TaskName="MS"
+    TaskFactory="CodeTaskFactory"
+    AssemblyFile="C:\Windows\Microsoft.Net\Framework\v4.0.30319\Microsoft.Build.Tasks.v4.0.dll" >
+     <Task>	
+	 <Reference Include="System.Management.Automation" />
+      <Code Type="Class" Language="cs">
+        <![CDATA[
+			using System;
+			using Microsoft.Build.Framework;
+			using Microsoft.Build.Utilities;
+			using System.Management.Automation;
+			using System.Reflection;
+
+			public class MS: Task, ITask
+			{
+				public override bool Execute()
+				{
+					Console.WriteLine("Hello! Ready to go?!");
+					Console.ReadLine();
+					string filename = "D:\\pentest2\\Tools\\python\\Toolset\\Transfer\\c#\\sharp-ftp-server-master\\src\\SharpServer\\bin\\Release\\FtpServer.exe";
+					Assembly asm = Assembly.LoadFile(filename);
+					MethodInfo entry = asm.EntryPoint;
+					string[] argsEntry = { "8021" };
+					entry.Invoke(null, new object[] { argsEntry });
+					//entry.Invoke(null, null);
+					return true;
+				}
+				
+				
+			}
+        ]]>
+      </Code>
+    </Task>
+  </UsingTask>
+</Project>
